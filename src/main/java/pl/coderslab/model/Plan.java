@@ -8,7 +8,10 @@ public class Plan {
     private int adminId;
     @Override
     public String toString() {
-        return String.format("Plan [id = %s, name = %s, description = %s, created = %s, adminId = %s", id, name, description, created, adminId);
+        return String.format("Plan [id = %s, name = %s, description = %s, created = %s, adminId = %s]", id, name, description, created, adminId);
+    }
+    public Plan (){
+
     }
 
     public Plan (String name, String description, String created) {
