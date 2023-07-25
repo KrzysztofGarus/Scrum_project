@@ -1,4 +1,4 @@
-package pl.coderslab.web;
+package pl.coderslab.filter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
