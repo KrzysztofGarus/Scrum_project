@@ -24,18 +24,29 @@
     <div class="container d-flex justify-content-center align-items-center">
         <div class="row">
             <div class="col-4 mr-4">
-                <div class="">
-                    <img src="/images/dinner.jpg">
+                <div style="align-items: center">
+                    <img src="/images/contact.jpg">
                 </div>
             </div>
 
             <div class="col-7 ml-4">
-                <h1 class="pb-1">O aplikacji</h1>
-                <h5>Aplikacja <span style="color: #ff6600">ZAPLANUJ JEDZONKO</span> pozwoli Tobie w łatwy i przejrzysty sposób zaplanować swoje dania i menu na cały tydzień.</h5>
-                <h6>Twórz własne przepisy.</h6>
-                <h6>Układaj plany żywieniowe.</h6>
-                <h6>Odżywij się zdrowo.</h6>
-                </p>
+                <form class="padding-small text-center" method="" action="">
+                    <h1 class="text-color-darker">Napisz do nas</h1>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="podaj imię">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="surname" name="surname" placeholder="podaj nazwisko">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="email" name="email" placeholder="podaj email">
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="6" cols="30" class="form-control" id="message" name="message" placeholder="Wpisz treść wiadomości"></textarea>
+                    </div>
+
+                    <button class="btn btn-color rounded-0" type="submit">Wyślij</button>
+                </form>
             </div>
         </div>
     </div>
