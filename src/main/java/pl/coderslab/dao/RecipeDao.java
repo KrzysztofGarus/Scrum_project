@@ -1,12 +1,10 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
-import java.sql.Timestamp;
+import java.sql.*;
+import pl.coderslab.model.Admin;
 import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 
 public class RecipeDao {
@@ -17,6 +15,22 @@ public class RecipeDao {
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET  name = ?, ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ?, admin_id = ? WHERE	id = ?;";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe where id = ?;";
 
+    private static final String FIND_USER_RECIPES_QTY_QUERY = "SELECT COUNT(*) as 'qty' FROM recipe WHERE admin_id = ?;";
+
+    public int getNumerOfRecipes(Admin admin) {
+        int qty =0;
+        try (Connection connection = DbUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(FIND_USER_RECIPES_QTY_QUERY);
+            statement.setInt(1, admin.getId());
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            qty = resultSet.getInt("qty");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return qty;
+    }
 
     public void delete(Integer recipeId) {
         try (Connection connection = DbUtil.getConnection();
