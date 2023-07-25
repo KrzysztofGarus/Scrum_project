@@ -15,11 +15,16 @@ public class AdminDao {
     private static final String READ_ADMIN_QUERY = "SELECT * FROM admins WHERE id = ?;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name = ?, last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE id = ?;";
 
+    private static final String IS_EMAIL_REGISTERED = "SELECT COUNT(*) AS email_count FROM admins WHERE email = ?;";
+
+    private static final String IS_EMAIL_AND_PASSWORD_VALID = "SELECT COUNT(*) AS user_count FROM admins WHERE email = ? AND password = ?;";
+
     public static String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
-    public Admin create(Admin admin){
-        try(Connection conn = DbUtil.getConnection(); PreparedStatement statement = conn.prepareStatement(CREATE_ADMIN_QUERY, Statement.RETURN_GENERATED_KEYS)){
+
+    public Admin create(Admin admin) {
+        try (Connection conn = DbUtil.getConnection(); PreparedStatement statement = conn.prepareStatement(CREATE_ADMIN_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, admin.getFirstName());
             statement.setString(2, admin.getLastName());
             statement.setString(3, admin.getEmail());
@@ -39,11 +44,12 @@ public class AdminDao {
                 }
             }
 
-        }catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return null;
     }
+
     public static void delete(int id) {
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement statement = conn.prepareStatement(DELETE_ADMIN_QUERY)) {
@@ -61,8 +67,8 @@ public class AdminDao {
     }
 
     public static List<Admin> findAll() {
-        try (Connection conn = DbUtil.getConnection()){
-             PreparedStatement statement = conn.prepareStatement(FIND_ALL_ADMINS_QUERY);
+        try (Connection conn = DbUtil.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(FIND_ALL_ADMINS_QUERY);
 
             List<Admin> list = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
@@ -127,6 +133,46 @@ public class AdminDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isEmailRegistered(String email) {
+        int emailCount = 0;
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(IS_EMAIL_REGISTERED)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    emailCount = resultSet.getInt("email_count");
+                    return emailCount > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isEmailAndPasswordValid(String email, String password)  {
+        int userCount = 0;
+        try(Connection conn = DbUtil.getConnection();
+            PreparedStatement statement = conn.prepareStatement(IS_EMAIL_AND_PASSWORD_VALID)) {
+            statement.setString(1, email);
+            statement.setString(2, password);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if (resultSet.next()) {
+                    userCount = resultSet.getInt("email_count");
+                    return userCount > 0;
+                }
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isSuperAdmin(Admin admin){
+        return admin.getSuperadmin() > 0;
     }
 
 }
