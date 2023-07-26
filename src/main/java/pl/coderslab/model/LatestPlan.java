@@ -5,12 +5,26 @@ public class LatestPlan {
     private String meal_name;
     private String recipe_name;
     private String recipe_description;
+    private String plan_name;
 
-    public LatestPlan(String day_name, String meal_name, String recipe_name, String recipe_description){
+    public LatestPlan(String day_name, String meal_name, String recipe_name, String recipe_description, String plan_name){
         this.day_name = day_name;
         this.meal_name = meal_name;
         this.recipe_name = recipe_name;
         this.recipe_description = recipe_description;
+        this.plan_name = plan_name;
+
+    }
+    public LatestPlan(){
+
+    }
+
+    public String getPlan_name() {
+        return plan_name;
+    }
+
+    public void setPlan_name(String plan_name) {
+        this.plan_name = plan_name;
     }
 
     public String getDay_name() {
