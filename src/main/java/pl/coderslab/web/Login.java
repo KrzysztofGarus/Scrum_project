@@ -20,15 +20,17 @@ import java.io.IOException;
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-       /*
-       tutaj będzie sprawdzanie metodą z klasy AdminDao
+       if (AdminDao.isEmailAndPasswordValid(email,password)) {
 
-       if (AdminDao.validation) {
-            getServletContext().getRequestDispatcher("/app/dashboard.jsp").forward(req, resp);
+           // gdzieś tutaj powinien być kod odpowiedzialny za stworzenie w sesji informacji o tym, że użytkownik jest zalogowany
+
+           resp.sendRedirect(req.getContextPath() + "/app");
         } else {
-            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+
+           // powinno być wyświetlenie informacji o ponownej próbie logowania
+
+           resp.sendRedirect(req.getContextPath() + "/login");
         }
-        */
 
     }
 }
