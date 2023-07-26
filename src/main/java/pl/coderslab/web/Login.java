@@ -24,7 +24,7 @@ import java.io.IOException;
        if (AdminDao.isEmailAndPasswordValid(email,password)) {
 
            HttpSession session = req.getSession();
-           session.setAttribute("username", email);
+           session.setAttribute("user", email);
            resp.sendRedirect(req.getContextPath() + "/app/dashboard");
 
         } else {
