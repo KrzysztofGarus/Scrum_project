@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/login") public class Login extends HttpServlet {
@@ -22,9 +23,10 @@ import java.io.IOException;
 
        if (AdminDao.isEmailAndPasswordValid(email,password)) {
 
-           // gdzieś tutaj powinien być kod odpowiedzialny za stworzenie w sesji informacji o tym, że użytkownik jest zalogowany
+           HttpSession session = req.getSession();
+           session.setAttribute("username", email);
+           resp.sendRedirect(req.getContextPath() + "/app/dashboard");
 
-           resp.sendRedirect(req.getContextPath() + "/app");
         } else {
 
            // powinno być wyświetlenie informacji o ponownej próbie logowania
