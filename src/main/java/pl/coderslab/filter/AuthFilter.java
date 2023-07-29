@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@WebFilter("/*")
+public class AuthFilter extends HttpFilter {
+    @Override
+    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
 
-//@WebFilter("/*")
-//public class AuthFilter extends HttpFilter {
-//    @Override
-//    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-//
-//        String requestURI = req.getRequestURI();
-//        if (requestURI.startsWith("/app")) {  // URI filtering instead of servlet address
-//            HttpSession session = req.getSession();
-//            if (session.getAttribute("username") != null) {
-//                chain.doFilter(req, res);
-//            } else {
-//                res.sendRedirect(req.getContextPath() + "/login");
-//            }
-//        } else {
-//            chain.doFilter(req, res);
-//        }
-//    }
-//}
+        String requestURI = req.getRequestURI();
+        if (requestURI.startsWith("/app")) {  // URI filtering instead of servlet address
+            HttpSession session = req.getSession();
+            if (session.getAttribute("username") != null) {
+                chain.doFilter(req, res);
+            } else {
+                res.sendRedirect(req.getContextPath() + "/login");
+            }
+        } else {
+            chain.doFilter(req, res);
+        }
+    }
+}
