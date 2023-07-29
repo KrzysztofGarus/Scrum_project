@@ -21,8 +21,7 @@ import java.io.IOException;
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-       if (AdminDao.isEmailAndPasswordValid(email,password)) {
-
+       if (AdminDao.isUserValid(email,password)) {
            HttpSession session = req.getSession();
            session.setAttribute("user", email);
            resp.sendRedirect(req.getContextPath() + "/app/dashboard");

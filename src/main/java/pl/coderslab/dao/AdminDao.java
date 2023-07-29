@@ -17,7 +17,7 @@ public class AdminDao {
 
     private static final String IS_EMAIL_REGISTERED = "SELECT COUNT(*) AS email_count FROM admins WHERE email = ?;";
 
-    private static final String IS_EMAIL_AND_PASSWORD_VALID = "SELECT COUNT(*) AS user_count FROM admins WHERE email = ? AND password = ?;";
+    private static final String SELECT_USER_BY_EMAIL = "SELECT * FROM admins WHERE email = ?";
 
     public static String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
@@ -152,20 +152,18 @@ public class AdminDao {
         return false;
     }
 
-    public static boolean isEmailAndPasswordValid(String email, String password)  {
-        int userCount = 0;
-        try(Connection conn = DbUtil.getConnection();
-            PreparedStatement statement = conn.prepareStatement(IS_EMAIL_AND_PASSWORD_VALID)) {
+    public static boolean isUserValid(String email, String password) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(SELECT_USER_BY_EMAIL)) {
             statement.setString(1, email);
-            statement.setString(2, password);
-            try(ResultSet resultSet = statement.executeQuery()){
+
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    userCount = resultSet.getInt("email_count");
-                    return userCount > 0;
+                    String dbPassword = resultSet.getString("password");
+                    return BCrypt.checkpw(password, dbPassword);
                 }
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
