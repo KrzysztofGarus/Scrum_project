@@ -19,6 +19,8 @@ public class AdminDao {
 
     private static final String SELECT_USER_BY_EMAIL = "SELECT * FROM admins WHERE email = ?";
 
+    private static final String SELECT_USERID_BY_EMAIL = "SELECT id FROM admin WHERE email = ?";
+
     public static String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
@@ -167,6 +169,21 @@ public class AdminDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static int getUserIDbyEmail(String email){
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(SELECT_USERID_BY_EMAIL)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Integer.parseInt(resultSet.getString("id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public static boolean isSuperAdmin(Admin admin){

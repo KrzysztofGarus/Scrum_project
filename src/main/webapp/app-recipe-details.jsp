@@ -11,7 +11,7 @@
         crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 
@@ -68,44 +68,59 @@
                             </a>
                         </li>
                     </ul>
-
-            
-        <div class="m-4 p-3 width-medium">
-            <div class="dashboard-content border-dashed p-3 m-4 view-height">
-                <div class="row border-bottom border-3 p-1 m-1">
-                    <div class="col noPadding"><h3 class="color-header text-uppercase">Lista Przepisów</h3></div>
-                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="/app-add-recipe.html" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj przepis</a></div>
-                </div>
-                    <table class="table border-bottom schedules-content">
-                        <thead>
-                            <tr class="d-flex text-color-darker">
-                                <th scope="col" class="col-1">ID</th>
-                                <th scope="col" class="col-2">NAZWA</th>
-                                <th scope="col" class="col-7">OPIS</th>
-                                <th scope="col" class="col-2 center">AKCJE</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-color-lighter">
-                        <c:forEach items="${recipes}" var = "recipe">
-                            <tr class="d-flex">
-                                <th scope="row" class="col-1">${recipe.id}</th>
-                                <td class="col-2">
-                                    ${recipe.name}
-                                </td>
-                                <td class="col-7">${recipe.description}</td>
-                                <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                    <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                    <a href="/app-recipe-details.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                    <a href="/app-edit-recipe.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>   
+        
+            <div class="m-4 p-3 width-medium text-color-darker">
+                    <div class="dashboard-content border-dashed p-3 m-4 view-height">
+                        <div class="mt-4 ml-4 mr-4">
+                            <div class="row border-bottom border-3">
+                                <div class="col"><h3 class="color-header text-uppercase">Szczegóły przepisu</h3></div>
+                                <div class="col d-flex justify-content-end mb-2"><a href="/app-recipes.html" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a></div>
+                            </div>
+                    
+                            <table class="table borderless">
+                                <tbody>
+                                    <tr class="d-flex">
+                                        <th scope="row" class="col-2">Nazwa Przepisu</th>
+                                        <td class="col-7">
+                                            ${recipe.name}
+                                        </td>
+                                    </tr>
+                                    <tr class="d-flex">
+                                        <th scope="row" class="col-2">Opis przepisu</th>
+                                        <td class="col-7">${recipe.description}</td>
+                                    </tr>
+                                    <tr class="d-flex">
+                                        <th scope="row" class="col-2">Przygotowanie (minuty)</th>
+                                        <td class="col-7">
+                                            ${recipe.preparation_time}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+        
+                            <div class="row d-flex">
+                                <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Sposób przygotowania</h3></div>
+                                <div class="col-2"></div>
+                                <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Składniki</h3></div>
+                            </div>
+                            <div class="row d-flex">
+                                <div class="col-5 p-4">
+                                    <p>${recipe.preparation}</p>
+                                </div>
+                                <div class="col-2"></div>
+                                <ul class="col-5 p-4 list-unstyled">
+                                    <c:forEach items="${ingredients}" var="ingredient">
+                                        <li>${ingredient}</li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                       
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <jsp:include page="footer.jsp" />
 </body>
