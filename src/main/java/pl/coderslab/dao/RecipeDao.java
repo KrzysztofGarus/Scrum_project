@@ -2,7 +2,11 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import pl.coderslab.model.Admin;
+import pl.coderslab.model.Plan;
 import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
@@ -10,6 +14,7 @@ import pl.coderslab.utils.DbUtil;
 public class RecipeDao {
 
     private static final String READ_RECIPE_QUERY = "SELECT * from recipe where id = ?;";
+    private static final String READ_ALL_ADMIN_RECIPE_QUERY = "SELECT * from recipe where admin_id = ?;";
     private static final String CREATE_RECIPE_QUERY = "INSERT INTO recipe(id, name, ingredients, description, created, preparation_time, preparation, admin_id) " +
             "VALUES (?,?,?,?,NOW(),?,?,?);";
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET  name = ?, ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ?, admin_id = ? WHERE	id = ?;";
@@ -32,7 +37,7 @@ public class RecipeDao {
         return qty;
     }
 
-    public void delete(Integer recipeId) {
+    public void delete(int recipeId) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_QUERY)) {
             statement.setInt(1, recipeId);
@@ -98,7 +103,7 @@ public class RecipeDao {
         return null;
     }
 
-    public Recipe read(Integer recipeId) {
+    public Recipe read(int recipeId) {
         Recipe recipe = new Recipe();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY)
@@ -121,5 +126,31 @@ public class RecipeDao {
             e.printStackTrace();
         }
         return recipe;
+    }
+
+    public List<Recipe> readAllForAdmin(int userId) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_ALL_ADMIN_RECIPE_QUERY)
+        ){
+             statement.setInt(1, userId);
+        ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Recipe recipe = new Recipe();
+                recipe.setId(resultSet.getInt("id"));
+                recipe.setName(resultSet.getString("name"));
+                recipe.setIngredients(resultSet.getString("ingredients"));
+                recipe.setDescription(resultSet.getString("description"));
+                recipe.setPreparation_time(resultSet.getInt("preparation_time"));
+                recipe.setPreparation(resultSet.getString("preparation"));
+                recipe.setAdminId(resultSet.getInt("admin_id"));
+                recipeList.add(recipe);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
     }
 }
