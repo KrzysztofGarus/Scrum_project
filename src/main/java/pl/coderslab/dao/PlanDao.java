@@ -27,7 +27,7 @@ public class PlanDao {
             "JOIN day_name ON day_name.id = day_name_id" +
             "JOIN plan ON plan.id = plan_id" +
             "JOIN recipe ON recipe.id = recipe_id" +
-            "WHERE recipe_plan.plan_id = (SELECT MAX(id) FROM plan WHERE admin_id = 1)" +
+            "WHERE recipe_plan.plan_id = (SELECT MAX(id) FROM plan WHERE admin_id = ?)" +
             "ORDER BY day_name.display_order, recipe_plan.display_order;";
 
 
