@@ -1,6 +1,7 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.AdminDao;
+import pl.coderslab.model.Admin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,7 @@ import java.io.IOException;
 
        if (AdminDao.isUserValid(email,password)) {
            HttpSession session = req.getSession();
-           session.setAttribute("user", email);
+           session.setAttribute("userId", AdminDao.getUserIDbyEmail(email));
            resp.sendRedirect(req.getContextPath() + "/app/dashboard");
 
         } else {
