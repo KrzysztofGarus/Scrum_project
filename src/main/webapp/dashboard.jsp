@@ -31,7 +31,7 @@
                             </a>
                         </div>
                         <div class="menu-item border-dashed">
-                            <a href="..app/schedules/add">
+                            <a href="../app/plan/add">
                                 <i class="far fa-plus-square icon-plus-square"></i>
                                 <span class="title">dodaj plan</span>
                             </a>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="m-4 p-4 border-dashed">
                     <h2 class="dashboard-content-title">
-                        <span>Ostatnio dodany plan:</span> Plan jak u mamy
+                        <span>Ostatnio dodany plan: ${lastAddedPlan}</span>
                     </h2>
                     <table class="table">
                         <thead>
