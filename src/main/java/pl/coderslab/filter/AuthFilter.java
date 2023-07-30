@@ -17,7 +17,7 @@ public class AuthFilter extends HttpFilter {
         String requestURI = req.getRequestURI();
         if (requestURI.startsWith("/app")) {  // URI filtering instead of servlet address
             HttpSession session = req.getSession();
-            if (session.getAttribute("user") != null) {
+            if (session.getAttribute("userId") != null) {
                 chain.doFilter(req, res);
             } else {
                 res.sendRedirect(req.getContextPath() + "/login");
