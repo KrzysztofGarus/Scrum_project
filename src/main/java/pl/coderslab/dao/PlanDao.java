@@ -22,13 +22,13 @@ public class PlanDao {
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
     private static final String FIND_ADMIN_PLANS_QTY_QUERY = "SELECT COUNT(*) as 'qty' FROM plan WHERE admin_id = ?;";
     private static final String LATEST_PLAN_QUERY = "SELECT day_name.name AS day_name, meal_name, recipe.name " +
-            "AS recipe_name, recipe.description AS recipe_description, plan.name " +
-            "FROM recipe_plan " +
-            "JOIN day_name ON day_name.id = day_name_id" +
-            "JOIN plan ON plan.id = plan_id" +
-            "JOIN recipe ON recipe.id = recipe_id" +
-            "WHERE recipe_plan.plan_id = (SELECT MAX(id) FROM plan WHERE admin_id = ?)" +
-            "ORDER BY day_name.display_order, recipe_plan.display_order;";
+            "AS recipe_name, recipe.description AS recipe_description, plan.name FROM recipe_plan\n" +
+            "    JOIN day_name ON day_name.id = day_name_id JOIN plan ON plan.id = plan_id\n" +
+            "    JOIN recipe ON recipe.id = recipe_id " +
+            "WHERE recipe_plan.plan_id = (SELECT MAX(id) FROM plan WHERE admin_id = ?)\n" +
+            "    ORDER BY day_name.display_order, recipe_plan.display_order;";
+
+
 
 
     public int getNumberOfPlans(Admin admin) {
