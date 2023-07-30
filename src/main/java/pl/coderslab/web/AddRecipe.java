@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -16,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 public class AddRecipe extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/app-add-recipe.jsp").forward(req,resp);
+        getServletContext().getRequestDispatcher("/app-add-recipe.jsp").forward(req, resp);
     }
 
     @Override
@@ -25,6 +26,8 @@ public class AddRecipe extends HttpServlet {
         resp.setContentType("text/html;charset=utf8");
         req.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
+        HttpSession sess = req.getSession();
+
         RecipeDao recipeDao = new RecipeDao();
         Recipe recipe = new Recipe();
         recipe.setName(req.getParameter("name"));
@@ -32,7 +35,7 @@ public class AddRecipe extends HttpServlet {
         recipe.setPreparation_time(Integer.parseInt(req.getParameter("preparationTime")));
         recipe.setPreparation(req.getParameter("preparation"));
         recipe.setIngredients(req.getParameter("ingredients"));
-        recipe.setAdminId(1);//TODO do stworzenia przepisu jest potrzebny id admina, najlepiej chyba stworzyc sesje podczas logowania i tam wrzucac np: name,adminId itd
+        recipe.setAdminId((int) sess.getAttribute("userId"));
         recipeDao.create(recipe);
 
         resp.sendRedirect("/app/recipe/list/");
