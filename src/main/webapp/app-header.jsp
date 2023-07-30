@@ -6,7 +6,7 @@
       Zaplanuj <span>Jedzonko</span>
     </a>
     <div class="d-flex justify-content-around">
-      <h4 class="text-light mr-3">Imię</h4>
+      <h4 class="text-light mr-3">${adminName}</h4>
       <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
     </div>
   </nav>
