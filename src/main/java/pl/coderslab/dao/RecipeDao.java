@@ -17,7 +17,7 @@ public class RecipeDao {
 
     private static final String FIND_USER_RECIPES_QTY_QUERY = "SELECT COUNT(*) as 'qty' FROM recipe WHERE admin_id = ?;";
 
-    public int getNumerOfRecipes(Admin admin) {
+    public int getNumberOfRecipes(Admin admin) {
         int qty =0;
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(FIND_USER_RECIPES_QTY_QUERY);
