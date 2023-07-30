@@ -30,7 +30,7 @@ public class PlanDao {
             "ORDER by day_name.display_order, recipe_plan.display_order;";
 
 
-    public int getNumerOfPlans(Admin admin) {
+    public int getNumberOfPlans(Admin admin) {
         int qty =0;
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(FIND_ADMIN_PLANS_QTY_QUERY);

@@ -19,7 +19,7 @@ public class AdminDao {
 
     private static final String SELECT_USER_BY_EMAIL = "SELECT * FROM admins WHERE email = ?";
 
-    private static final String SELECT_USERID_BY_EMAIL = "SELECT id FROM admin WHERE email = ?";
+    private static final String SELECT_USERID_BY_EMAIL = "SELECT id FROM admins WHERE email = ?";
 
     public static String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
