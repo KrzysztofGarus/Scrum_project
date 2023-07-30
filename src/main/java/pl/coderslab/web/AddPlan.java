@@ -25,15 +25,13 @@ public class AddPlan extends HttpServlet {
         String planName = req.getParameter("planName");
         String planDescription = req.getParameter("planDescription");
         HttpSession session = req.getSession();
-        int userId = Integer.parseInt(String.valueOf(session.getAttribute("userId")));
 
-        Plan plan = new Plan();
-        plan.setName(planName);
-        plan.setDescription(planDescription);
-        plan.setAdminId(userId);
+        int userId = (int) session.getAttribute("userId");
+
+        Plan plan = new Plan(planName, planDescription, userId);
         PlanDao planDao = new PlanDao();
         planDao.create(plan);
 
-        resp.sendRedirect("/app/dashboard");
+        resp.sendRedirect("/app/plan/list");
     }
 }

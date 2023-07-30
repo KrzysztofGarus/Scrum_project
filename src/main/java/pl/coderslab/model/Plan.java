@@ -14,10 +14,10 @@ public class Plan {
 
     }
 
-    public Plan (String name, String description, String created) {
+    public Plan (String name, String description, int adminId) {
         this.name = name;
         this.description = description;
-        this.created = created;
+        this.adminId = adminId;
     }
 
     public int getId() {return id;}
