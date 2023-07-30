@@ -26,7 +26,7 @@ public class RecipeList extends HttpServlet {
         admin = AdminDao.read(1);
         RecipeDao recipeDao = new RecipeDao();
         List<Recipe> recipeList = new ArrayList<>();
-        int ctr = recipeDao.getNumerOfRecipes(admin);
+        int ctr = recipeDao.getNumberOfRecipes(admin);
         for (int i = 0; i < ctr; i++){
         recipeList.add(recipeDao.read(i+1));
         }
