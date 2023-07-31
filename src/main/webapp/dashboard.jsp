@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,58 +60,47 @@
                     <h2 class="dashboard-content-title">
                         <span>Ostatnio dodany plan: ${lastAddedPlan}</span>
                     </h2>
-                    <table class="table">
-                        <thead>
-                            <tr class="d-flex">
-                                <th class="col-2">Poniedziałek</th>
-                                <th class="col-8"></th>
-                                <th class="col-2"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="d-flex">
-                                <td class="col-2">śniadanie</td>
-                                <td class="col-8">płatki owsiane z jagodami i komosą ryżową</td>
-                                <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                            </tr>
-                            <tr class="d-flex">
-                                <td class="col-2">śniadanie</td>
-                                <td class="col-8">kanapka z pastą rybną</td>
-                                <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                            </tr>
-                            <tr class="d-flex">
-                                <td class="col-2">obiad</td>
-                                <td class="col-8">zupa pomidorowa</td>
-                                <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table">
-                        <thead>
-                            <tr class="d-flex">
-                                <th class="col-2">Wtorek</th>
-                                <th class="col-8"></th>
-                                <th class="col-2"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="d-flex">
-                                <td class="col-2">śniadanie</td>
-                                <td class="col-8">płatki owsiane z jagodami i komosą ryżową</td>
-                                <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                            </tr>
-                            <tr class="d-flex">
-                                <td class="col-2">drugie śniadanie</td>
-                                <td class="col-8">pączki</td>
-                                <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                            </tr>
-                            <tr class="d-flex">
-                                <td class="col-2">obiad</td>
-                                <td class="col-8">schabowy w panierce</td>
-                                <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <c:if test="${empty latestPlan}">
+                        <p>Brak Planu</p>
+                    </c:if>
+                    <c:if test="${not empty latestPlan}">
+                        <table class="table">
+                        <c:set var="prevDayName" value="" />
+                        <c:forEach items="${latestPlan}" var="plan">
+                            <c:if test="${plan.dayName ne prevDayName}">
+                                <thead>
+                                <tr class="d-flex">
+                                    <th class="col-2">${plan.dayName}</th>
+                                    <th class="col-8"></th>
+                                    <th class="col-2"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="d-flex">
+                                    <td class="col-2">${plan.mealName}</td>
+                                    <td class="col-8">${plan.recipeName}</td>
+                                    <td class="col-2">
+                                        <a href="/app/recipe/details?id=${plan.recipeId}" class="btn btn-primary rounded-0">Szczegóły</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </c:if>
+                            <c:if test="${plan.dayName eq prevDayName}">
+                                <tbody>
+                                <tr class="d-flex">
+                                    <td class="col-2">${plan.mealName}</td>
+                                    <td class="col-8">${plan.recipeName}</td>
+                                    <td class="col-2">
+                                        <a href="/app/recipe/details?id=${plan.recipeId}" class="btn btn-primary rounded-0">Szczegóły</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </c:if>
+                            <c:set var="prevDayName" value="${plan.dayName}" />
+                        </c:forEach>
+                        </table>
+
+                    </c:if>
                 </div>
             </div>
         </div>
