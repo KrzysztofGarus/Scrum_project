@@ -33,6 +33,7 @@ public class Dashboard extends HttpServlet {
         System.out.println(latestPlans.size());
         if (latestPlans.size() != 0) {
             req.setAttribute("lastAddedPlan", latestPlans.get(latestPlans.size()-1).getPlanName());
+            req.setAttribute("latestPlan",latestPlans);
 //            req.setAttribute("lastAddedPlan", "latestPlans.size()-1).getPlanName()");
         } else {
             req.setAttribute("lastAddedPlan", "Brak");
