@@ -6,13 +6,15 @@ public class LatestPlan {
     private String recipeName;
     private String recipeDescription;
     private String planName;
+    private int recipeId;
 
-    public LatestPlan(String dayName, String mealName, String recipeName, String recipeDescription, String planName){
+    public LatestPlan(String dayName, String mealName, String recipeName, String recipeDescription, String planName, int recipeId){
         this.dayName = dayName;
         this.mealName = mealName;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
         this.planName = planName;
+        this.recipeId = recipeId;
 
     }
     public LatestPlan(){
@@ -57,5 +59,13 @@ public class LatestPlan {
 
     public void setRecipeDescription(String recipeDescription) {
         this.recipeDescription = recipeDescription;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 }
