@@ -2,7 +2,6 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Admin;
-import pl.coderslab.model.Book;
 import pl.coderslab.model.LatestPlan;
 import pl.coderslab.model.Plan;
 import pl.coderslab.utils.DbUtil;
@@ -151,11 +150,11 @@ public class PlanDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
                 LatestPlan plan = new LatestPlan();
-                plan.setDay_name(resultSet.getString("day_name"));
-                plan.setMeal_name(resultSet.getString("meal_name"));
-                plan.setRecipe_name(resultSet.getString("recipe_name"));
-                plan.setRecipe_description(resultSet.getString("recipe_description"));
-                plan.setPlan_name(resultSet.getString("name"));
+                plan.setDayName(resultSet.getString("day_name"));
+                plan.setMealName(resultSet.getString("meal_name"));
+                plan.setRecipeName(resultSet.getString("recipe_name"));
+                plan.setRecipeDescription(resultSet.getString("recipe_description"));
+                plan.setPlanName(resultSet.getString("name"));
                 list.add(plan);
             }
 
