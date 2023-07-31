@@ -44,6 +44,9 @@ public class Register extends HttpServlet {
             adminDao.create(admin);
             resp.sendRedirect("/login");
         } else {
+            req.setAttribute("name", name);
+            req.setAttribute("surname", surname);
+            req.setAttribute("email", email);
             getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
         }
 

@@ -38,7 +38,7 @@ public class AddRecipe extends HttpServlet {
         recipe.setAdminId((int) sess.getAttribute("userId"));
         recipeDao.create(recipe);
 
-        resp.sendRedirect("/app/recipe/list/");
+        resp.sendRedirect("/app/recipe/list");
 
     }
 }

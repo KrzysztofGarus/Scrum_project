@@ -24,23 +24,25 @@
                 <div class="container w-25">
                     <!-- fix action, method // done -->
                     <!-- add name attribute for all inputs //  -->
-                    <form class="padding-small text-center" method="post" action="/register">
+                    <form id="form" class="padding-small text-center" method="post" action="/register">
                         <h1 class="text-color-darker">Rejestracja</h1>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="podaj imię">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="podaj imię" value="${name}">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="surname" name="surname" placeholder="podaj nazwisko">
+                            <input type="text" class="form-control" id="surname" name="surname" placeholder="podaj nazwisko" value="${surname}">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="podaj email">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="podaj email" value="${email}">
+                        </div>
+                        <p id="checkEmail" class="d-none" style="color:red">błędny email</p>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="podaj hasło">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="password" name="password" placeholder="podaj hasło">
+                            <input type="password" class="form-control" id="repassword" name="repassword" placeholder="powtórz hasło">
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="repassword" name="repassword" placeholder="powtórz hasło">
-                        </div>
+                        <p id="checkPass" class="d-none" style="color:red">Hasła nie są takie same. Spróbuj ponownie.</p>
                         <button class="btn btn-color rounded-0" type="submit">Zarejestruj</button>
                     </form>
                  </div>
@@ -50,5 +52,6 @@
 
 <jsp:include page="footer.jsp" />
 
+<script src="JS/registration.js"></script>
 </body>
 </html>

@@ -1,61 +1,71 @@
 package pl.coderslab.model;
 
 public class LatestPlan {
-    private String day_name;
-    private String meal_name;
-    private String recipe_name;
-    private String recipe_description;
-    private String plan_name;
+    private String dayName;
+    private String mealName;
+    private String recipeName;
+    private String recipeDescription;
+    private String planName;
+    private int recipeId;
 
-    public LatestPlan(String day_name, String meal_name, String recipe_name, String recipe_description, String plan_name){
-        this.day_name = day_name;
-        this.meal_name = meal_name;
-        this.recipe_name = recipe_name;
-        this.recipe_description = recipe_description;
-        this.plan_name = plan_name;
+    public LatestPlan(String dayName, String mealName, String recipeName, String recipeDescription, String planName, int recipeId){
+        this.dayName = dayName;
+        this.mealName = mealName;
+        this.recipeName = recipeName;
+        this.recipeDescription = recipeDescription;
+        this.planName = planName;
+        this.recipeId = recipeId;
 
     }
     public LatestPlan(){
 
     }
 
-    public String getPlan_name() {
-        return plan_name;
+    public String getPlanName() {
+        return planName;
     }
 
-    public void setPlan_name(String plan_name) {
-        this.plan_name = plan_name;
+    public void setPlanName(String planName) {
+        this.planName = planName;
     }
 
-    public String getDay_name() {
-        return day_name;
+    public String getDayName() {
+        return dayName;
     }
 
-    public void setDay_name(String day_name) {
-        this.day_name = day_name;
+    public void setDayName(String dayName) {
+        this.dayName = dayName;
     }
 
-    public String getMeal_name() {
-        return meal_name;
+    public String getMealName() {
+        return mealName;
     }
 
-    public void setMeal_name(String meal_name) {
-        this.meal_name = meal_name;
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
     }
 
-    public String getRecipe_name() {
-        return recipe_name;
+    public String getRecipeName() {
+        return recipeName;
     }
 
-    public void setRecipe_name(String recipe_name) {
-        this.recipe_name = recipe_name;
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
     }
 
-    public String getRecipe_description() {
-        return recipe_description;
+    public String getRecipeDescription() {
+        return recipeDescription;
     }
 
-    public void setRecipe_description(String recipe_description) {
-        this.recipe_description = recipe_description;
+    public void setRecipeDescription(String recipeDescription) {
+        this.recipeDescription = recipeDescription;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 }
