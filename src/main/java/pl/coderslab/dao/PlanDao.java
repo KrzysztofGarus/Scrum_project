@@ -20,6 +20,8 @@ public class PlanDao {
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan where id = ?;";
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
     private static final String FIND_ADMIN_PLANS_QTY_QUERY = "SELECT COUNT(*) as 'qty' FROM plan WHERE admin_id = ?;";
+
+    private static final String FIND_ALL_ADMIN_PLANS_QUERY = "SELECT * FROM plan WHERE admin_id = ?;";
     private static final String LATEST_PLAN_QUERY = "SELECT day_name.name AS day_name, meal_name, recipe.name\n" +
             "AS recipe_name, recipe.description AS recipe_description, recipe_id, plan.name FROM recipe_plan\n" +
             "JOIN day_name ON day_name.id = day_name_id JOIN plan ON plan.id = plan_id\n" +
@@ -28,10 +30,8 @@ public class PlanDao {
             "ORDER BY day_name.display_order, recipe_plan.display_order;";
 
 
-
-
     public int getNumberOfPlans(Admin admin) {
-        int qty =0;
+        int qty = 0;
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(FIND_ADMIN_PLANS_QTY_QUERY);
             statement.setInt(1, admin.getId());
@@ -45,9 +45,9 @@ public class PlanDao {
         return qty;
     }
 
-    public Plan create (Plan plan) {
+    public Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(CREATE_PLAN_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)){
+             PreparedStatement statement = connection.prepareStatement(CREATE_PLAN_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, plan.getName());
             statement.setString(2, plan.getDescription());
             statement.setInt(3, plan.getAdminId());
@@ -72,6 +72,7 @@ public class PlanDao {
         }
         return null;
     }
+
     public Plan read(Integer planId) {
         Plan plan = new Plan();
         try (Connection connection = DbUtil.getConnection();
@@ -93,6 +94,7 @@ public class PlanDao {
         return plan;
 
     }
+
     public void update(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_PLAN_QUERY)) {
@@ -106,6 +108,7 @@ public class PlanDao {
         }
 
     }
+
     public void delete(Integer planId) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_PLAN_QUERY)) {
@@ -120,6 +123,7 @@ public class PlanDao {
             e.printStackTrace();
         }
     }
+
     public List<Plan> findAll() {
         List<Plan> planList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
@@ -141,14 +145,15 @@ public class PlanDao {
         }
         return planList;
     }
-    public static List<LatestPlan> latestPlan(int userId){
+
+    public static List<LatestPlan> latestPlan(int userId) {
         List<LatestPlan> list = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(LATEST_PLAN_QUERY)) {
 
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 LatestPlan plan = new LatestPlan();
                 plan.setDayName(resultSet.getString("day_name"));
                 plan.setMealName(resultSet.getString("meal_name"));
@@ -164,6 +169,29 @@ public class PlanDao {
         }
 
         return list;
+    }
+
+    public List<Plan> readAllAdminPlans(int userId) {
+        List<Plan> list = new ArrayList<>();
+        try(Connection connection = DbUtil.getConnection();PreparedStatement statement = connection.prepareStatement(FIND_ALL_ADMIN_PLANS_QUERY)){
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Plan planToAdd = new Plan();
+                planToAdd.setId(resultSet.getInt("id"));
+                planToAdd.setName(resultSet.getString("name"));
+                planToAdd.setDescription(resultSet.getString("description"));
+                planToAdd.setCreated(resultSet.getString("created"));
+                planToAdd.setAdminId(resultSet.getInt("admin_id"));
+                list.add(planToAdd);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return list;
+
     }
 
 }
