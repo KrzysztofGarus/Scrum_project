@@ -8,6 +8,7 @@
     <div class="d-flex justify-content-around">
       <h4 class="text-light mr-3">${adminName}</h4>
       <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
+      <a href="/logout" class="text-light mr-3" style="padding-left: 10px;">Wyloguj</a>
     </div>
   </nav>
 </header>
