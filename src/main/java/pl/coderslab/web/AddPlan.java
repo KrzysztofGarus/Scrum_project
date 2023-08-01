@@ -1,6 +1,8 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.AdminDao;
 import pl.coderslab.dao.PlanDao;
+import pl.coderslab.model.Admin;
 import pl.coderslab.model.Plan;
 
 import javax.servlet.ServletException;
@@ -15,8 +17,11 @@ import java.io.IOException;
 public class AddPlan extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        resp.sendRedirect("/app-add-schedules.jsp");
+        HttpSession sess = req.getSession();
+        int userId = (int) sess.getAttribute("userId");
+        Admin admin = AdminDao.read(userId);
+        req.setAttribute("adminName", admin.getFirstName());
+        getServletContext().getRequestDispatcher("/app-add-schedules.jsp").forward(req, resp);
     }
 
     @Override
