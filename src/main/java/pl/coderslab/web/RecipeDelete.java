@@ -1,6 +1,7 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.AdminDao;
+import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Admin;
 
 import javax.servlet.ServletException;
@@ -20,13 +21,22 @@ public class RecipeDelete extends HttpServlet {
         Admin admin = AdminDao.read(userId);
         req.setAttribute("adminName", admin.getFirstName());
         int id = Integer.parseInt(req.getParameter("id"));
-        req.setAttribute("recipeId", id);
-        getServletContext().getRequestDispatcher("app-delete-recipe.jsp")
+        req.setAttribute("id", id);
+        getServletContext().getRequestDispatcher("/app-delete-recipe.jsp")
                 .forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getParameter("id");
+        int id =Integer.parseInt(req.getParameter("id"));
+        RecipeDao recipeDao = new RecipeDao();
+        if(id != 0){
+            recipeDao.delete(id);
+            getServletContext().getRequestDispatcher("/app/recipe/list")
+                    .forward(req,resp);
+        } else {
+            getServletContext().getRequestDispatcher("/app/recipe/list")
+                    .forward(req,resp);
+        }
     }
 }
