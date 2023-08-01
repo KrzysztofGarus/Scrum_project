@@ -28,6 +28,11 @@ public class PlanDao {
             "JOIN recipe ON recipe.id = recipe_id\n" +
             "WHERE recipe_plan.plan_id = (SELECT MAX(id) FROM plan WHERE admin_id = ?)\n" +
             "ORDER BY day_name.display_order, recipe_plan.display_order;";
+    private static final String PLAN_DETAILS_QUERY = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe_id\n" +
+            "FROM `recipe_plan`\n" +
+            "         JOIN day_name on day_name.id=day_name_id\n" +
+            "         JOIN recipe on recipe.id=recipe_id WHERE plan_id = ?\n" +
+            "ORDER by day_name.display_order, recipe_plan.display_order;";
 
 
     public int getNumberOfPlans(Admin admin) {
@@ -194,4 +199,26 @@ public class PlanDao {
 
     }
 
+    public static List<LatestPlan> planDetails(int planId) {
+        List<LatestPlan> list = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(PLAN_DETAILS_QUERY)) {
+
+            statement.setInt(1, planId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                LatestPlan plan = new LatestPlan();
+                plan.setDayName(resultSet.getString("day_name"));
+                plan.setMealName(resultSet.getString("meal_name"));
+                plan.setRecipeName(resultSet.getString("recipe_name"));
+                plan.setRecipeId(resultSet.getInt("recipe_id"));
+                list.add(plan);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }

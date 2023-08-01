@@ -36,7 +36,9 @@
                         </div>
 
                         <table class="table">
+                            <c:set var="prevDayName" value="" />
                             <c:forEach items="${details}" var="plans">
+                            <c:if test="${plans.dayName ne prevDayName}">
                             <thead>
                                 <tr class="d-flex">
                                     <th class="col-2">${plans.dayName}</th>
@@ -45,66 +47,35 @@
                                     <th class="col-2"></th>
                                 </tr>
                             </thead>
-                                <c:forEach items="${details}" var="plans">
                                 <tbody class="text-color-lighter">
                                 <tr class="d-flex">
                                     <td class="col-2">${plans.mealName}</td>
-                                    <td class="col-7">${plans.recipeDescription}</td>
+                                    <td class="col-7">${plans.recipeName}</td>
                                     <td class="col-1 center">
                                         <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                                     </td>
                                     <td class="col-2 center">
-                                        <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                        <a href="/app/recipe/details?id=${plans.recipeId}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                     </td>
                                 </tr>
-                                </c:forEach>
-                                </c:forEach>
+                                </c:if>
+                                <c:if test="${plans.dayName eq prevDayName}">
+                            <tbody class="text-color-lighter">
+                            <tr class="d-flex">
+                                <td class="col-2">${plans.mealName}</td>
+                                <td class="col-7">${plans.recipeName}</td>
+                                <td class="col-1 center">
+                                    <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/recipe/details?id=${plans.recipeId}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                </td>
+                            </tr>
+                                </c:if>
+                                <c:set var="prevDayName" value="${plans.dayName}" />
+                            </c:forEach>
                             </tbody>
                         </table>
-
-                        <table class="table">
-                                <thead>
-                                    <tr class="d-flex">
-                                        <th class="col-2">Poniedziałek</th>
-                                        <th class="col-7"></th>
-                                        <th class="col-1"></th>
-                                        <th class="col-2"></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-color-lighter">
-                                    <tr class="d-flex">
-                                        <td class="col-2">śniadanie</td>
-                                        <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
-                                        <td class="col-1 center">
-                                            <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                        </td>
-                                        <td class="col-2 center">
-                                            <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="d-flex">
-                                        <td class="col-2">śniadanie</td>
-                                        <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
-                                        <td class="col-1 center">
-                                            <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                        </td>
-                                        <td class="col-2 center">
-                                            <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="d-flex">
-                                        <td class="col-2">śniadanie</td>
-                                        <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
-                                        <td class="col-1 center">
-                                            <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                        </td>
-                                        <td class="col-2 center">
-                                            <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
                     </div>
                 </div>
             </div>
