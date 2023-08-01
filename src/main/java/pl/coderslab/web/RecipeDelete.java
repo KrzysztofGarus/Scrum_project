@@ -31,9 +31,13 @@ public class RecipeDelete extends HttpServlet {
         int id =Integer.parseInt(req.getParameter("id"));
         RecipeDao recipeDao = new RecipeDao();
         if(id != 0){
+            if (!recipeDao.isRecipeInPlan(id)){
             recipeDao.delete(id);
             getServletContext().getRequestDispatcher("/app/recipe/list")
-                    .forward(req,resp);
+                    .forward(req,resp);} else {
+                getServletContext().getRequestDispatcher("/app/recipe/list")
+                        .forward(req,resp);
+            }
         } else {
             getServletContext().getRequestDispatcher("/app/recipe/list")
                     .forward(req,resp);
