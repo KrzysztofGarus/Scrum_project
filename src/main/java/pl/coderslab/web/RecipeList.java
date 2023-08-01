@@ -22,6 +22,8 @@ public class RecipeList extends HttpServlet {
 //        Tutaj trzeba będzie pobrać id zalogowanego użytkownika najlepiej z sesji, żeby wyświetlić jego przepisy.
         HttpSession session = req.getSession();
         int userId = (int)session.getAttribute("userId");
+        Admin admin = AdminDao.read(userId);
+        req.setAttribute("adminName", admin.getFirstName());
 //        Admin admin = new Admin();
 //        admin = AdminDao.read(1);
         RecipeDao recipeDao = new RecipeDao();

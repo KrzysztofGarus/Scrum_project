@@ -2,8 +2,6 @@ package pl.coderslab.web;
 
 import pl.coderslab.dao.AdminDao;
 import pl.coderslab.model.Admin;
-import pl.coderslab.model.Recipe;
-import pl.coderslab.dao.RecipeDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/app/recipe/details")
-public class RecipeDetails extends HttpServlet {
+@WebServlet("/app/recipe/delete")
+public class RecipeDelete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession sess = req.getSession();
@@ -22,12 +20,13 @@ public class RecipeDetails extends HttpServlet {
         Admin admin = AdminDao.read(userId);
         req.setAttribute("adminName", admin.getFirstName());
         int id = Integer.parseInt(req.getParameter("id"));
-        RecipeDao recipeDao = new RecipeDao();
-        Recipe recipe = recipeDao.read(id);
-        String[] ingredients = recipe.getIngredients().split(",");
-        req.setAttribute("recipe", recipe);
-        req.setAttribute("ingredients", ingredients);
-        getServletContext().getRequestDispatcher("/app-recipe-details.jsp")
+        req.setAttribute("recipeId", id);
+        getServletContext().getRequestDispatcher("app-delete-recipe.jsp")
                 .forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getParameter("id");
     }
 }
