@@ -41,7 +41,10 @@ public class AddRecipeToPlan extends HttpServlet {
         String mealName = req.getParameter("mealName");
         int planId = Integer.parseInt(req.getParameter("planId"));
         int displayOrder = Integer.parseInt(req.getParameter("displayOrder"));
-        String dayNameId = req.getParameter("dayNameId");
+        String dayName = req.getParameter("dayName");
+        DayNameDao dayNameDao = new DayNameDao();
+        int dayNameId = dayNameDao.getIdForDayName(dayName);
+
         RecipePlanDao recipePlanDao = new RecipePlanDao();
         recipePlanDao.insert(recipeId, mealName, displayOrder, dayNameId, planId);
       //  resp.sendRedirect("/app/recipe/list"); TODO czy nie lepiej po dodaniu wrocic do strony wejsciowej..!?
