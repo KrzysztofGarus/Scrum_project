@@ -57,7 +57,7 @@
                             </tr>
                             </tbody>
                         </table>
-
+                        <input type="hidden" name="recipeId" value="${recipeToEdit.id}">
                         <div class="row d-flex">
                             <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Sposób
                                 przygotowania</h3></div>
