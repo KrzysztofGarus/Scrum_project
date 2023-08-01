@@ -1,13 +1,11 @@
 package pl.coderslab.web;
 
-import pl.coderslab.dao.AdminDao;
-import pl.coderslab.dao.DayNameDao;
-import pl.coderslab.dao.PlanDao;
-import pl.coderslab.dao.RecipeDao;
+import pl.coderslab.dao.*;
 import pl.coderslab.model.Admin;
 import pl.coderslab.model.DayName;
 import pl.coderslab.model.Plan;
 import pl.coderslab.model.Recipe;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,5 +33,18 @@ public class AddRecipeToPlan extends HttpServlet {
         req.setAttribute("adminPlans", adminPlans);
         req.setAttribute("adminRecipes", adminRecipes);
         getServletContext().getRequestDispatcher("/app-add-recipe-to-plan.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int recipeId = Integer.parseInt(req.getParameter("recipeId"));
+        String mealName = req.getParameter("mealName");
+        int planId = Integer.parseInt(req.getParameter("planId"));
+        int displayOrder = Integer.parseInt(req.getParameter("displayOrder"));
+        String dayNameId = req.getParameter("dayNameId");
+        RecipePlanDao recipePlanDao = new RecipePlanDao();
+        recipePlanDao.insert(recipeId, mealName, displayOrder, dayNameId, planId);
+      //  resp.sendRedirect("/app/recipe/list"); TODO czy nie lepiej po dodaniu wrocic do strony wejsciowej..!?
+        resp.sendRedirect("/app/recipe/plan/add");
     }
 }
