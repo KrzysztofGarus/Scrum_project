@@ -14,7 +14,8 @@ import pl.coderslab.utils.DbUtil;
 public class RecipeDao {
 
     private static final String READ_RECIPE_QUERY = "SELECT * FROM recipe WHERE id = ?;";
-    private static final String READ_NEWEST_RECIPE_QUERY = "SELECT * FROM recipe ORDERD BY created DESC LIMIT 5;";
+    private static final String READ_NEWEST_RECIPE_QUERY = "SELECT * FROM recipe ORDER BY created DESC LIMIT 5;";
+    private static final String READ_ALL_RECIPES_QUERY = "SELECT * FROM recipe;";
     private static final String READ_ALL_ADMIN_RECIPE_QUERY = "SELECT * from recipe where admin_id = ?;";
     private static final String CREATE_RECIPE_QUERY = "INSERT INTO recipe(id, name, ingredients, description, created, preparation_time, preparation, admin_id) " +
             "VALUES (?,?,?,?,NOW(),?,?,?);";
@@ -178,4 +179,28 @@ public class RecipeDao {
         }
         return recipeList;
     }
+
+    public List<Recipe> readAllRecipes() {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_ALL_RECIPES_QUERY)
+        ){
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Recipe recipe = new Recipe();
+                recipe.setId(resultSet.getInt("id"));
+                recipe.setName(resultSet.getString("name"));
+                recipe.setIngredients(resultSet.getString("ingredients"));
+                recipe.setDescription(resultSet.getString("description"));
+                recipe.setPreparation_time(resultSet.getInt("preparation_time"));
+                recipe.setPreparation(resultSet.getString("preparation"));
+                recipe.setAdminId(resultSet.getInt("admin_id"));
+                recipeList.add(recipe);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
+    }
+
 }
