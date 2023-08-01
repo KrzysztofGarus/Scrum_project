@@ -25,24 +25,18 @@ public class Dashboard extends HttpServlet {
         RecipeDao recipeDao = new RecipeDao();
         PlanDao planDao = new PlanDao();
         Admin admin = AdminDao.read(userId);
-        req.setAttribute("adminName", admin.getFirstName());
+        session.setAttribute("adminName",admin.getFirstName());
         req.setAttribute("recipeCount", recipeDao.getNumberOfRecipes(admin));
         req.setAttribute("scheduleCount", planDao.getNumberOfPlans(admin));
 
         List<LatestPlan> latestPlans = planDao.latestPlan(userId);
-        System.out.println(latestPlans.size());
         if (latestPlans.size() != 0) {
             req.setAttribute("lastAddedPlan", latestPlans.get(latestPlans.size()-1).getPlanName());
             req.setAttribute("latestPlan",latestPlans);
-//            req.setAttribute("lastAddedPlan", "latestPlans.size()-1).getPlanName()");
+
         } else {
             req.setAttribute("lastAddedPlan", "Brak");
         }
-
-
-
         getServletContext().getRequestDispatcher("/dashboard.jsp").forward(req, resp);
     }
-
-
 }
