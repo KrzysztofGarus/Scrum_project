@@ -23,6 +23,7 @@ public class RecipeDao {
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe WHERE id = ?;";
 
     private static final String FIND_USER_RECIPES_QTY_QUERY = "SELECT COUNT(*) AS 'qty' FROM recipe WHERE admin_id = ?;";
+    private static final String IS_RECIPE_IN_PLAN_QUERY = "SELECT * FROM recipe_plan WHERE recipe_id = ?";
 
     public int getNumberOfRecipes(Admin admin) {
         int qty =0;
@@ -201,6 +202,17 @@ public class RecipeDao {
             e.printStackTrace();
         }
         return recipeList;
+    }
+    public boolean isRecipeInPlan (int recipeId){
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(IS_RECIPE_IN_PLAN_QUERY)
+        ){
+          ResultSet result = statement.executeQuery();
+            return result.next();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return true;
     }
 
 }
