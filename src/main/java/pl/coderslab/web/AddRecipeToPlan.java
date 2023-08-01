@@ -1,9 +1,6 @@
 package pl.coderslab.web;
 
-import pl.coderslab.dao.AdminDao;
-import pl.coderslab.dao.DayNameDao;
-import pl.coderslab.dao.PlanDao;
-import pl.coderslab.dao.RecipeDao;
+import pl.coderslab.dao.*;
 import pl.coderslab.model.Admin;
 import pl.coderslab.model.DayName;
 import pl.coderslab.model.Plan;
@@ -40,16 +37,13 @@ public class AddRecipeToPlan extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String planId = req.getParameter("planId");
+        int recipeId = Integer.parseInt(req.getParameter("recipeId"));
         String mealName = req.getParameter("mealName");
-        String displayOrder = req.getParameter("displayOrder"); // czy to jest numer posilku
-        String recipeId = req.getParameter("recipeId"); // przepis
-        String dayNameId = req.getParameter("dayNameId"); // dayNameId
-        PlanDao planDao = new PlanDao();
-        Plan plan = new Plan();
-
-        //   planDao.update(planId);
-        resp.sendRedirect("/app/recipe/plan/add");
-
+        int planId = Integer.parseInt(req.getParameter("planId"));
+        int displayOrder = Integer.parseInt(req.getParameter("displayOrder"));
+        String dayNameId = req.getParameter("dayNameId");
+        RecipePlanDao recipePlanDao = new RecipePlanDao();
+        recipePlanDao.insert(recipeId, mealName, displayOrder, dayNameId, planId);
+        resp.sendRedirect("/app/recipe/list");
     }
 }

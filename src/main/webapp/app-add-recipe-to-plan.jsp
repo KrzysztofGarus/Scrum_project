@@ -85,7 +85,7 @@
                             <div class="col-sm-2">
                                 <select class="form-control" id="day" name="dayNameId">
                                     <c:forEach items="${dayList}" var="day">
-                                        <option value="${day.name}">${day.name}</option>
+                                        <option value="${day.id}">${day.id}</option>
                                     </c:forEach>
                                 </select>
                             </div>
