@@ -21,11 +21,11 @@
 <body>
 <header class="page-header">
     <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/" class="navbar-brand main-logo main-logo-smaller">
+        <a href="/app/dashboard" class="navbar-brand main-logo main-logo-smaller">
             Zaplanuj <span>Jedzonko</span>
         </a>
         <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">Imię obżarciucha</h4>
+            <h4 class="text-light mr-3">${adminName}</h4>
             <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
         </div>
     </nav>
@@ -53,7 +53,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/app/edit/user/data">
+                <a class="nav-link" href="/app/edit/userdata">
                     <span>Edytuj dane</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
@@ -65,10 +65,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/app/super/admin/users">
+                <a class="nav-link" href="/app/superadmin/users">
                     <span>Użytkownicy</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
         </ul>
-<%--w razie pytan, zglos sie do Gosi--%>
