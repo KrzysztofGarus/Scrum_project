@@ -1,6 +1,8 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.AdminDao;
 import pl.coderslab.dao.RecipeDao;
+import pl.coderslab.model.Admin;
 import pl.coderslab.model.Recipe;
 
 import javax.servlet.ServletException;
@@ -17,6 +19,10 @@ import java.nio.charset.StandardCharsets;
 public class AddRecipe extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession sess = req.getSession();
+        int userId = (int) sess.getAttribute("userId");
+        Admin admin = AdminDao.read(userId);
+        req.setAttribute("adminName", admin.getFirstName());
         getServletContext().getRequestDispatcher("/app-add-recipe.jsp").forward(req, resp);
     }
 
