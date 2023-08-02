@@ -21,7 +21,7 @@ public class RecipeDao {
     private static final String READ_ALL_ADMIN_RECIPE_QUERY = "SELECT * from recipe where admin_id = ?;";
     private static final String CREATE_RECIPE_QUERY = "INSERT INTO recipe(id, name, ingredients, description, created, preparation_time, preparation, admin_id) " +
             "VALUES (?,?,?,?,NOW(),?,?,?);";
-    private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET  name = ?, ingredients = ?, description = ?, created = ?, updated = NOW(), preparation_time = ?, preparation = ?, admin_id = ? WHERE	id = ?;";
+    private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET  name = ?, ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ?, admin_id = ? WHERE	id = ?;";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe WHERE id = ?;";
 
     private static final String FIND_USER_RECIPES_QTY_QUERY = "SELECT COUNT(*) AS 'qty' FROM recipe WHERE admin_id = ?;";
@@ -63,11 +63,10 @@ public class RecipeDao {
             statement.setString(1, recipe.getName());
             statement.setString(2, recipe.getIngredients());
             statement.setString(3, recipe.getDescription());
-            statement.setTimestamp(4, recipe.getCreated());
-            statement.setInt(5, recipe.getPreparationTime());
-            statement.setString(6, recipe.getPreparation());
-            statement.setInt(7, recipe.getAdminId());
-            statement.setInt(8, recipe.getId());
+            statement.setInt(4, recipe.getPreparationTime());
+            statement.setString(5, recipe.getPreparation());
+            statement.setInt(6, recipe.getAdminId());
+            statement.setInt(7, recipe.getId());
 
             statement.executeUpdate();
         } catch (Exception e) {

@@ -33,7 +33,6 @@ public class EditRecipe extends HttpServlet {
         String ingredients = req.getParameter("ingredients");
         String description = req.getParameter("description");
         int preparationTime = Integer.parseInt(req.getParameter("preparationTime"));
-        Timestamp created = Timestamp.valueOf(req.getParameter("created"));
 
         String preparation = req.getParameter("preparation");
         Recipe recipe = new Recipe();
@@ -44,7 +43,6 @@ public class EditRecipe extends HttpServlet {
         recipe.setDescription(description);
         recipe.setPreparationTime(preparationTime);
         recipe.setPreparation(preparation);
-        recipe.setCreated(created);
         RecipeDao recipeDao = new RecipeDao();
         recipeDao.update(recipe);
         req.getServletContext().getRequestDispatcher("/app/recipe/list").forward(req,resp);
