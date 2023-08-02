@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<<jsp:include page="app-header.jsp"/>
+<jsp:include page="app-header.jsp"/>
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
