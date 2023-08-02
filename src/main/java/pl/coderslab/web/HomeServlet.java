@@ -1,15 +1,14 @@
 package pl.coderslab.web;
 
-import pl.coderslab.dao.PlanDao;
-import pl.coderslab.model.LatestPlan;
+import pl.coderslab.dao.AdminDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 
 /**
@@ -18,8 +17,17 @@ import java.util.List;
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
+        HttpSession sess = req.getSession();
+        if (sess.getAttribute("userId") == null) {
+            getServletContext().getRequestDispatcher("/home.jsp").forward(req, resp);
+        } else {
+
+
+            getServletContext().getRequestDispatcher("/app/dashboard").forward(req, resp);
+        }
+
+
     }
 }

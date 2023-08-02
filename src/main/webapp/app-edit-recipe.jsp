@@ -52,7 +52,7 @@
                                 <th scope="row" class="col-2">Przygotowanie (minuty)</th>
                                 <td class="col-3">
                                     <input name="preparationTime" class="p-1" type="number"
-                                           value="${recipeToEdit.preparation_time}">
+                                           value="${recipeToEdit.preparationTime}">
                                 </td>
                             </tr>
                             </tbody>

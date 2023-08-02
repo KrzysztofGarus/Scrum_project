@@ -1,6 +1,6 @@
 package pl.coderslab.model;
 
-public class LatestPlan {
+public class PlanDetails {
     private String dayName;
     private String mealName;
     private String recipeName;
@@ -8,7 +8,7 @@ public class LatestPlan {
     private String planName;
     private int recipeId;
 
-    public LatestPlan(String dayName, String mealName, String recipeName, String recipeDescription, String planName, int recipeId){
+    public PlanDetails(String dayName, String mealName, String recipeName, String recipeDescription, String planName, int recipeId){
         this.dayName = dayName;
         this.mealName = mealName;
         this.recipeName = recipeName;
@@ -17,7 +17,7 @@ public class LatestPlan {
         this.recipeId = recipeId;
 
     }
-    public LatestPlan(){
+    public PlanDetails(){
 
     }
 
