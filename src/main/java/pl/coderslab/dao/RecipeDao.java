@@ -210,6 +210,7 @@ public class RecipeDao {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(IS_RECIPE_IN_PLAN_QUERY)
         ) {
+            statement.setInt(1,recipeId);
             ResultSet result = statement.executeQuery();
             return result.next();
         } catch (SQLException e) {
