@@ -78,7 +78,7 @@ public class PlanDao {
         return null;
     }
 
-    public Plan read(Integer planId) {
+    public Plan getPlan(Integer planId) {
         Plan plan = new Plan();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_PLAN_QUERY)
