@@ -38,7 +38,7 @@ public class AddRecipe extends HttpServlet {
         Recipe recipe = new Recipe();
         recipe.setName(req.getParameter("name"));
         recipe.setDescription(req.getParameter("description"));
-        recipe.setPreparation_time(Integer.parseInt(req.getParameter("preparationTime")));
+        recipe.setPreparationTime(Integer.parseInt(req.getParameter("preparationTime")));
         recipe.setPreparation(req.getParameter("preparation"));
         recipe.setIngredients(req.getParameter("ingredients"));
         recipe.setAdminId((int) sess.getAttribute("userId"));
