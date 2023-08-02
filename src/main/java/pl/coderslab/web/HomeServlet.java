@@ -1,5 +1,7 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.AdminDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,9 @@ public class HomeServlet extends HttpServlet {
         if (sess.getAttribute("userId") == null) {
             getServletContext().getRequestDispatcher("/home.jsp").forward(req, resp);
         } else {
-            getServletContext().getRequestDispatcher("/dashboard.jsp").forward(req, resp);
+
+
+            getServletContext().getRequestDispatcher("/app/dashboard").forward(req, resp);
         }
 
 
