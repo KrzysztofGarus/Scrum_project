@@ -2,7 +2,7 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Admin;
-import pl.coderslab.model.LatestPlan;
+import pl.coderslab.model.PlanDetails;
 import pl.coderslab.model.Plan;
 import pl.coderslab.utils.DbUtil;
 
@@ -151,15 +151,15 @@ public class PlanDao {
         return planList;
     }
 
-    public static List<LatestPlan> latestPlan(int userId) {
-        List<LatestPlan> list = new ArrayList<>();
+    public static List<PlanDetails> latestPlan(int userId) {
+        List<PlanDetails> list = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(LATEST_PLAN_QUERY)) {
 
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                LatestPlan plan = new LatestPlan();
+                PlanDetails plan = new PlanDetails();
                 plan.setDayName(resultSet.getString("day_name"));
                 plan.setMealName(resultSet.getString("meal_name"));
                 plan.setRecipeName(resultSet.getString("recipe_name"));
@@ -199,15 +199,15 @@ public class PlanDao {
 
     }
 
-    public static List<LatestPlan> planDetails(int planId) {
-        List<LatestPlan> list = new ArrayList<>();
+    public static List<PlanDetails> planDetails(int planId) {
+        List<PlanDetails> list = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(PLAN_DETAILS_QUERY)) {
 
             statement.setInt(1, planId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                LatestPlan plan = new LatestPlan();
+                PlanDetails plan = new PlanDetails();
                 plan.setDayName(resultSet.getString("day_name"));
                 plan.setMealName(resultSet.getString("meal_name"));
                 plan.setRecipeName(resultSet.getString("recipe_name"));
