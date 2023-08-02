@@ -24,7 +24,7 @@ public class AddRecipeToPlan extends HttpServlet {
         Admin admin = AdminDao.read(userId);
         req.setAttribute("adminName", admin.getFirstName());
         PlanDao planDao = new PlanDao();
-        List<Plan> adminPlans = planDao.readAllAdminPlans(userId);
+        List<Plan> adminPlans = planDao.getAllPlansForUserId(userId);
         RecipeDao recipeDao = new RecipeDao();
         List<Recipe> adminRecipes = recipeDao.readAllForAdmin(userId);
         DayNameDao dayNameDao = new DayNameDao();

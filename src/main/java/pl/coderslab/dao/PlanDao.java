@@ -21,7 +21,7 @@ public class PlanDao {
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
     private static final String FIND_ADMIN_PLANS_QTY_QUERY = "SELECT COUNT(*) as 'qty' FROM plan WHERE admin_id = ?;";
 
-    private static final String FIND_ALL_ADMIN_PLANS_QUERY = "SELECT * FROM plan WHERE admin_id = ?;";
+    private static final String FIND_ALL_PLANS_PER_USER_ID_QUERY = "SELECT * FROM plan WHERE admin_id = ?;";
     private static final String LATEST_PLAN_QUERY = "SELECT day_name.name AS day_name, meal_name, recipe.name\n" +
             "AS recipe_name, recipe.description AS recipe_description, recipe_id, plan.name FROM recipe_plan\n" +
             "JOIN day_name ON day_name.id = day_name_id JOIN plan ON plan.id = plan_id\n" +
@@ -176,9 +176,9 @@ public class PlanDao {
         return list;
     }
 
-    public List<Plan> readAllAdminPlans(int userId) {
+    public List<Plan> getAllPlansForUserId(int userId) {
         List<Plan> list = new ArrayList<>();
-        try(Connection connection = DbUtil.getConnection();PreparedStatement statement = connection.prepareStatement(FIND_ALL_ADMIN_PLANS_QUERY)){
+        try(Connection connection = DbUtil.getConnection();PreparedStatement statement = connection.prepareStatement(FIND_ALL_PLANS_PER_USER_ID_QUERY)){
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
