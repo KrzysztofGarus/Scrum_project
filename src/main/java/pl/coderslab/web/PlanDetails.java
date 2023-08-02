@@ -1,7 +1,6 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.PlanDao;
-import pl.coderslab.model.LatestPlan;
 import pl.coderslab.model.Plan;
 
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ public class PlanDetails extends HttpServlet {
         int id =  Integer.parseInt(req.getParameter("id"));
         PlanDao planDao = new PlanDao();
         Plan plan = planDao.read(id);
-        List<LatestPlan> list = planDao.planDetails(id);
+        List<pl.coderslab.model.PlanDetails> list = planDao.planDetails(id);
         req.setAttribute("plan", plan);
         req.setAttribute("details", list);
         getServletContext().getRequestDispatcher("/app-details-schedules.jsp")
