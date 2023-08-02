@@ -92,7 +92,7 @@
                                     <tr class="d-flex">
                                         <th scope="row" class="col-2">Przygotowanie (minuty)</th>
                                         <td class="col-7">
-                                            ${recipe.preparation_time}
+                                            ${recipe.preparationTime}
                                         </td>
                                     </tr>
                                 </tbody>

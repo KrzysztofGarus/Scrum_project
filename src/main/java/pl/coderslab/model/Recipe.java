@@ -11,7 +11,7 @@ public class Recipe {
     private String description;
     private Timestamp created;
     private Timestamp updated;
-    private int preparation_time;
+    private int preparationTime;
     private String preparation;
     private int adminId;
 
@@ -24,7 +24,7 @@ public class Recipe {
                 ", description='" + description + '\'' +
                 ", created=" + created +
                 ", updated=" + updated +
-                ", preparation_time=" + preparation_time +
+                ", preparationTime=" + preparationTime +
                 ", preparation='" + preparation + '\'' +
                 ", admin_id=" + adminId +
                 '}';
@@ -78,12 +78,12 @@ public class Recipe {
         this.updated = updated;
     }
 
-    public int getPreparation_time() {
-        return preparation_time;
+    public int getPreparationTime() {
+        return preparationTime;
     }
 
-    public void setPreparation_time(int preparation_time) {
-        this.preparation_time = preparation_time;
+    public void setPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
     }
 
     public String getPreparation() {

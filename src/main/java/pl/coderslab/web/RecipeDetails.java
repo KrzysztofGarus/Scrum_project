@@ -23,7 +23,7 @@ public class RecipeDetails extends HttpServlet {
         req.setAttribute("adminName", admin.getFirstName());
         int id = Integer.parseInt(req.getParameter("id"));
         RecipeDao recipeDao = new RecipeDao();
-        Recipe recipe = recipeDao.read(id);
+        Recipe recipe = recipeDao.getRecipeById(id);
         String[] ingredients = recipe.getIngredients().split(",");
         req.setAttribute("recipe", recipe);
         req.setAttribute("ingredients", ingredients);
