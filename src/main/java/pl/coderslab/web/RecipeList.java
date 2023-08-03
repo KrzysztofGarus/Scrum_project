@@ -19,23 +19,12 @@ import java.util.List;
 public class RecipeList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        Tutaj trzeba będzie pobrać id zalogowanego użytkownika najlepiej z sesji, żeby wyświetlić jego przepisy.
         HttpSession session = req.getSession();
         int userId = (int)session.getAttribute("userId");
         Admin admin = AdminDao.read(userId);
         req.setAttribute("adminName", admin.getFirstName());
-//        Admin admin = new Admin();
-//        admin = AdminDao.read(1);
         RecipeDao recipeDao = new RecipeDao();
-//        List<Recipe> recipeList = new ArrayList<>();
-//        int ctr = recipeDao.getNumberOfRecipes(admin);
-//        for (int i = 0; i < ctr; i++){
-//        recipeList.add(recipeDao.read(i+1));
-//        }
-
         List<Recipe> list = recipeDao.readAllForAdmin(userId);
-
-
         req.setAttribute("recipes", list);
         getServletContext().getRequestDispatcher("/app-recipes.jsp")
                 .forward(req, resp);

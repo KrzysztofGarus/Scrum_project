@@ -21,8 +21,8 @@ public class HomeRecipes extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         RecipeDao recipeDao = new RecipeDao();
-        List<Recipe> newestRecipes1 = recipeDao.readNewestRecipes();
-        req.setAttribute("newestRecipes", newestRecipes1);
+        List<Recipe> newestRecipes = recipeDao.readNewestRecipes();
+        req.setAttribute("newestRecipes", newestRecipes);
         req.getServletContext().getRequestDispatcher("/unregistered-recipes.jsp").forward(req, resp);
     }
 
