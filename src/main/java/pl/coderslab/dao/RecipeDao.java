@@ -18,7 +18,7 @@ public class RecipeDao {
     private static final String GET_RECIPE_BY_ID_QUERY = "SELECT * FROM recipe WHERE id = ?;";
     private static final String READ_NEWEST_RECIPE_QUERY = "SELECT * FROM recipe ORDER BY created DESC LIMIT 5;";
     private static final String READ_ALL_RECIPES_QUERY = "SELECT * FROM recipe;";
-    private static final String READ_ALL_ADMIN_RECIPE_QUERY = "SELECT * from recipe where admin_id = ?;";
+    private static final String READ_ALL_ADMIN_RECIPE_QUERY = "SELECT * from recipe where admin_id = ? ORDER BY created DESC;";
     private static final String CREATE_RECIPE_QUERY = "INSERT INTO recipe(id, name, ingredients, description, created, preparation_time, preparation, admin_id) " +
             "VALUES (?,?,?,?,NOW(),?,?,?);";
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET  name = ?, ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ?, admin_id = ? WHERE	id = ?;";
@@ -216,7 +216,7 @@ public class RecipeDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
 
