@@ -28,9 +28,9 @@
     </div>
 </section>
 
-<form class="d-flex justify-content-end" action="/recipes" method="post">
-    <input type="text" placeholder="Wyszukaj przepis..." name="searchedRecipe">
-    <button class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4" type="submit">&nbsp;&nbsp;Szukaj&nbsp;&nbsp;</button>
+<form class="d-flex justify-content-end mr-5" action="/recipes" method="post">
+    <input type="text" placeholder=" Wyszukaj przepis..." name="searchedRecipe">
+    <button class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4" type="submit">Szukaj</button>
 </form>
 <br>
 
@@ -52,7 +52,7 @@
                         ${recipe.name}
                 </td>
                 <td class="col-5">${recipe.description}</td>
-                <td class="col-1"><a href="#" class="btn btn-info rounded-0 text-light">Szczegóły</a></td>
+                <td class="col-1"><a href="/login" class="btn btn-info rounded-0 text-light">Szczegóły</a></td>
             </tr>
         </c:forEach>
         </tbody>
