@@ -52,7 +52,7 @@
                                     <td class="col-2">${plans.mealName}</td>
                                     <td class="col-7">${plans.recipeName}</td>
                                     <td class="col-1 center">
-                                        <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                        <a href="/app/recipe/plan/delete?recipeId=${plans.recipeId}&mealName=${plans.mealName}&dayName=${plans.dayName}&planId=${plan.id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                                     </td>
                                     <td class="col-2 center">
                                         <a href="/app/recipe/details?id=${plans.recipeId}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
@@ -65,7 +65,7 @@
                                 <td class="col-2">${plans.mealName}</td>
                                 <td class="col-7">${plans.recipeName}</td>
                                 <td class="col-1 center">
-                                    <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                    <a href="/app/recipe/plan/delete?recipeId=${plans.recipeId}&mealName=${plans.mealName}&dayName=${plans.dayName}&planId=${plan.id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                                 </td>
                                 <td class="col-2 center">
                                     <a href="/app/recipe/details?id=${plans.recipeId}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
